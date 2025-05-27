@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from .permissions import IsAdminOrReadOnly
 from .models import Category, Author, Book
 from .serializers import CategorySerializer, AuthorSerializer, AuthorAlternativeSerializer, BookSerializer
 
@@ -33,6 +34,7 @@ class CategoryViewset(ModelViewSet):
     model = Category
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class AuthorViewset(ModelViewSet):
@@ -65,6 +67,7 @@ class AuthorViewset(ModelViewSet):
 
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
+    permission_classes = [IsAdminOrReadOnly]
 
     @action(detail=True, methods=['get'])
     def get_nome(self, request, pk):
@@ -108,3 +111,4 @@ class BookViewset(ModelViewSet):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAdminOrReadOnly]

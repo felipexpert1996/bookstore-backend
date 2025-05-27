@@ -23,6 +23,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True, help_text='Autor do livro')
     category = models.ManyToManyField(Category, help_text='Categoria do livro')
     price = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(0.10), MaxValueValidator(999999999999.00)], help_text='Preço do livro')
+    isHighlight = models.BooleanField(default=False) 
 
     def __str__(self):
         return self.name
